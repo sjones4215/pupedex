@@ -1,7 +1,6 @@
 class Puppy < ApplicationRecord
     has_many :reviews, dependent: :destroy
     
-    def self.search(search)
-      where("age LIKE ? OR breed LIKE ? OR size LIKE ?", "%#{search}%","%#{search}%","%#{search}%")
+    def self.search(term)
+      where("age LIKE ?", "%#{term}%").or(where("breed LIKE ?", "%#{term}%")).or(where("size LIKE ?", "%#{term}%"))
    end
-end
