@@ -6,8 +6,10 @@ class PuppiesController < ApplicationController
         @puppies = Puppy.all
         if params[:search]
           @puppies = Puppy.search(params[:search]).order("created_at DESC")
+          render json: @puppies
         else
           @puppies = Puppy.all.order('created_at DESC')
+          render json: @puppies
         end
       end
 
@@ -44,6 +46,6 @@ class PuppiesController < ApplicationController
     end
 
     def puppy_params
-        params.require(:puppy).permit(:name, :age, :breed, :size, :search)
+        params.require(:puppy).permit(:name, :age, :breed, :size)
     end
 end
