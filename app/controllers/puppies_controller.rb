@@ -8,6 +8,7 @@ class PuppiesController < ApplicationController
         else
             @puppies = Puppy.all.order('created_at DESC')
         end
+        
         if @puppies.size == 0
             render json: "We could not find anything matching this criteria"
         end
