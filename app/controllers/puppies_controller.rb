@@ -4,8 +4,12 @@ class PuppiesController < ApplicationController
 
     def index
         @puppies = Puppy.all
-        render json: { puppies: @puppies, reviews: @reviews }
-    end
+        if params[:search]
+          @puppies = Puppy.search(params[:search]).order("created_at DESC")
+        else
+          @puppies = Puppy.all.order('created_at DESC')
+        end
+      end
 
     def show
         @reviews = Review.where(puppy_id: params[:id])   
