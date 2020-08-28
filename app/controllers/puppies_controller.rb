@@ -3,15 +3,16 @@ class PuppiesController < ApplicationController
     skip_before_action :authenticate, only:[:index, :show]
 
     def index
-        @puppies = Puppy.all
         if params[:search]
-          @puppies = Puppy.search(params[:search]).order("created_at DESC")
-          render json: @puppies
+            @puppies = Puppy.search(params[:search]).order("created_at DESC")
         else
-          @puppies = Puppy.all.order('created_at DESC')
-          render json: @puppies
+            @puppies = Puppy.all.order('created_at DESC')
         end
-      end
+        if @puppies.size == 0
+            render json: "We could not find anything matching this criteria"
+        end
+            render json: @puppies
+    end
 
     def show
         @reviews = Review.where(puppy_id: params[:id])   
