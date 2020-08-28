@@ -7,8 +7,6 @@ class PuppiesController < ApplicationController
         if params[:search]
           @puppies = Puppy.search(params[:search]).order("created_at DESC")
           render json: @puppies
-        elsif params[:search] && params[:search] == !params[:search]
-            render json: "We could not find anything matching this criteria."
         else
           @puppies = Puppy.all.order('created_at DESC')
           render json: @puppies
