@@ -4,3 +4,4 @@ class Puppy < ApplicationRecord
     def self.search(term)
       where("age LIKE ?", "%#{term}%").or(where("breed LIKE ?", "%#{term}%")).or(where("size LIKE ?", "%#{term}%"))
    end
+end
